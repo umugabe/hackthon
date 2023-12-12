@@ -1,0 +1,135 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Testimonial</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- <script src='main.js'></script> -->
+</head>
+    <body>
+        <div class="container">
+            
+            <div class="contents-wraper">
+                
+                <section class="header"><h1>Success Stories</h1></section>
+        
+                <section class="testRow">
+                    
+                    <div class="testItem active">
+                        <img src="./images/james.jpg">
+                        <h3>Jacob Kwizera</h3>
+                        <h4>San Francisco, USA</h4>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    </div>
+        
+                    <div class="testItem">
+                        <img src="./images/janet.jpg">
+                        <h3>Bella Stephanie</h3>
+                        <h4>Newyork, USA</h4>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    </div>
+        
+                    <div class="testItem">
+                        <img src="./images/joseph.jpg">
+                        <h3>Joseph Mutabazi</h3>
+                        <h4>Kigali, Rwanda</h4>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    </div>
+        
+                    <div class="testItem">
+                        <img src="./images/jeniffer.jpg">
+                        <h3>Diana Sandra</h3>
+                        <h4>Ottawa, Canada</h4>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    </div>
+        
+                    <div class="testItem">
+                        <img src="./images/Derrick.jpg">
+                        <h3>Divin Bruce</h3>
+                        <h4>London, England</h4>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    </div>
+        
+                </section>
+        
+                <section class="indicators">
+                    <div class="dot active" attr='0' onclick="switchTest(this)"></div>
+                    <div class="dot" attr='1' onclick="switchTest(this)"></div>
+                    <div class="dot" attr='2' onclick="switchTest(this)"></div>
+                    <div class="dot" attr='3' onclick="switchTest(this)"></div>
+                    <div class="dot" attr='4' onclick="switchTest(this)"></div>
+                </section>
+        
+            </div>
+        </div>
+        
+        <script type="text/javascript">
+            
+            // Access the testimonials
+            let testSlide = document.querySelectorAll('.testItem');
+            // Access the indicators
+            let dots = document.querySelectorAll('.dot');
+        
+            var counter = 0;
+        
+            // Add click event to the indicators
+            function switchTest(currentTest){
+                currentTest.classList.add('active');
+                var testId = currentTest.getAttribute('attr');
+                if(testId > counter){
+                    testSlide[counter].style.animation = 'next1 0.5s ease-in forwards';
+                    counter = testId;
+                    testSlide[counter].style.animation = 'next2 0.5s ease-in forwards';
+                }
+                else if(testId == counter){return;}
+                else{
+                    testSlide[counter].style.animation = 'prev1 0.5s ease-in forwards';
+                    counter = testId;
+                    testSlide[counter].style.animation = 'prev2 0.5s ease-in forwards';
+                }
+                indicators();
+            }
+        
+            // Add and remove active class from the indicators
+            function indicators(){
+                for(i = 0; i < dots.length; i++){
+                    dots[i].className = dots[i].className.replace(' active', '');
+                }
+                dots[counter].className += ' active';
+            }
+        
+            // Code for auto sliding
+            function slideNext(){
+                testSlide[counter].style.animation = 'next1 0.5s ease-in forwards';
+                if(counter >= testSlide.length - 1){
+                    counter = 0;
+                }
+                else{
+                    counter++;
+                }
+                testSlide[counter].style.animation = 'next2 0.5s ease-in forwards';
+                indicators();
+            }
+            function autoSliding(){
+                deleteInterval = setInterval(timer, 2000);
+                function timer(){
+                    slideNext();
+                    indicators();
+                }
+            }
+            autoSliding();
+        
+            // Stop auto sliding when mouse is over the indicators
+            const container = document.querySelector('.indicators');
+            container.addEventListener('mouseover', pause);
+            function pause(){
+                clearInterval(deleteInterval);
+            }
+        
+            // Resume sliding when mouse is out of the indicators
+            container.addEventListener('mouseout', autoSliding);
+        
+        </script>
+</body>
+</html>
